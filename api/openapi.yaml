@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: payments-ms
+  description: ""
+  contact:
+    email: bharghava.k@tibilsolutions.com
+  version: 1.0.11
+servers:
+- url: /
+tags:
+- name: payments-ms
+  description: Access to payments
+paths:
+  /payments/summary/get:
+    post:
+      tags:
+      - payments-ms
+      summary: payment count
+      description: ""
+      operationId: trasactionCount
+      requestBody:
+        description: current date
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/summary_get_body'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/countRes'
+        "400":
+          description: invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      x-swagger-router-controller: PaymentsMs
+  /payments/get:
+    post:
+      tags:
+      - payments-ms
+      summary: payments Data
+      description: ""
+      operationId: trasaction
+      requestBody:
+        description: request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payments_get_body'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transactionRes'
+        "400":
+          description: invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      x-swagger-router-controller: PaymentsMs
+  /payments:
+    post:
+      tags:
+      - payments-ms
+      summary: payments Data
+      description: ""
+      operationId: payments
+      requestBody:
+        description: request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payments_body'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+      x-swagger-router-controller: PaymentsMs
+components:
+  schemas:
+    countRes:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 2000
+        data:
+          $ref: '#/components/schemas/countRes_data'
+      example:
+        code: 2000
+        data:
+          amount: 934
+          current_date: 10/2/2022
+          count: 34
+    transactionRes:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 2000
+        data:
+          $ref: '#/components/schemas/transactionRes_data'
+      example:
+        code: 2000
+        data:
+          current_date: 10/12/2020
+          payments: "[{\"id\":1,\"details\":{\"payer_name\":\"abc\",\"payer_id\":\"\
+            w4r085\",\"transaction_time\":\"10/10/2020\",\"amount\":23423}},{\"id\"\
+            :2,\"details\":{\"payer_name\":\"amkf\",\"payer_id\":\"sjfdksdf3\",\"\
+            transaction_time\":\"29/2/2024\",\"amount\":2343232}}]"
+    summary_get_body:
+      type: object
+      properties:
+        date:
+          type: string
+          example: 10/2/2022
+        uuid:
+          type: string
+          example: 32532mkdmf43435
+    inline_response_400:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1000
+        message:
+          type: string
+          example: invalid/missing uuid
+    payments_get_body:
+      type: object
+      properties:
+        date:
+          type: string
+          example: 10/12/2020
+        uuid:
+          type: string
+          example: 932589sfs34
+    payments_body:
+      type: object
+      properties:
+        merchant_mobile:
+          type: string
+          example: "9082023284"
+        payee_vpa:
+          type: string
+          example: 34892edjkncx
+        datetime:
+          type: string
+          example: 12/10/2020
+        amount:
+          type: integer
+          example: 3848492
+        payer_vpa:
+          type: string
+          example: "6437890"
+        payer_name:
+          type: string
+          example: abc
+    inline_response_200:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 2000
+        example:
+          type: string
+          example: successfully received
+      example:
+        code: 2000
+        example: successfully received
+    inline_response_400_1:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1000
+        message:
+          type: string
+          example: missing required fields
+    countRes_data:
+      type: object
+      properties:
+        amount:
+          type: integer
+          example: 934
+        count:
+          type: integer
+          example: 34
+        current_date:
+          type: string
+          example: 10/2/2022
+      example:
+        amount: 934
+        current_date: 10/2/2022
+        count: 34
+    transactionRes_data_payments_details:
+      type: object
+      properties:
+        payer_name:
+          type: string
+        payer_id:
+          type: string
+        transction_time:
+          type: string
+        amount:
+          type: integer
+        current_date:
+          type: string
+    transactionRes_data_payments:
+      type: object
+      properties:
+        id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/transactionRes_data_payments_details'
+      example: "[{\"id\":1,\"details\":{\"payer_name\":\"abc\",\"payer_id\":\"w4r085\"\
+        ,\"transaction_time\":\"10/10/2020\",\"amount\":23423}},{\"id\":2,\"details\"\
+        :{\"payer_name\":\"amkf\",\"payer_id\":\"sjfdksdf3\",\"transaction_time\"\
+        :\"29/2/2024\",\"amount\":2343232}}]"
+    transactionRes_data:
+      type: object
+      properties:
+        current_date:
+          type: string
+          example: 10/12/2020
+        payments:
+          $ref: '#/components/schemas/transactionRes_data_payments'
+      example:
+        current_date: 10/12/2020
+        payments: "[{\"id\":1,\"details\":{\"payer_name\":\"abc\",\"payer_id\":\"\
+          w4r085\",\"transaction_time\":\"10/10/2020\",\"amount\":23423}},{\"id\"\
+          :2,\"details\":{\"payer_name\":\"amkf\",\"payer_id\":\"sjfdksdf3\",\"transaction_time\"\
+          :\"29/2/2024\",\"amount\":2343232}}]"
