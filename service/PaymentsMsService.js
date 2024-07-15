@@ -68,7 +68,7 @@ exports.payments = function(body) {
         };
         resolve(examples['application/json']);
         break;
-      case body.datetime !== '12/10/2020':
+      case body.datetime !== '15/07/2020':
         examples['application/json'] = {
           code: 1000,
           message: 'please enter a valid datetime'
@@ -98,8 +98,8 @@ exports.payments = function(body) {
         break;
       default:
         examples['application/json'] = {
-          code: 2000,
-          message: 'successfully received'
+          "code": 2000,
+          "message": 'successfully received'
         };
         resolve(examples['application/json']);
         break;
@@ -126,7 +126,7 @@ exports.trasaction = function(body) {
           message: 'required field uuid'
         };
         break;
-      case body.uuid !== "12":
+      case body.uuid !== "32532mkdmf43435":
           examples['application/json'] = {
             "code": 1000,
             "message": "no record found"
@@ -138,7 +138,7 @@ exports.trasaction = function(body) {
           message: 'required field date'
         };
         break;
-      case body.date !== '10/12/2020':
+      case body.date !== '15/07/2020':
         examples['application/json'] = {
           code: 1000,
           message: 'please enter a valid date'
@@ -146,10 +146,29 @@ exports.trasaction = function(body) {
         break;
       default:
         examples['application/json'] = {
-          code: 2000,
-          data: {
-            current_date: '10/12/2020',
-            payments: "[{\"id\":1,\"details\":{\"payer_name\":\"abc\",\"payer_id\":\"w4r085\",\"transaction_time\":\"10/10/2020\",\"amount\":23423}},{\"id\":2,\"details\":{\"payer_name\":\"amkf\",\"payer_id\":\"sjfdksdf3\",\"transaction_time\":\"29/2/2024\",\"amount\":2343232}}]"
+          "code": 2000,
+          "data": {
+            "current_date": "15/07/2020",
+            "payments": [
+              {
+                "id": 1,
+                "details": {
+                  "payer_name": "abc",
+                  "payer_id": "w4r085",
+                  "transaction_time": "15/07/2020",
+                  "amount": 23423
+                }
+              },
+              {
+                "id": 2,
+                "details": {
+                  "payer_name": "amkf",
+                  "payer_id": "sjfdksdf3",
+                  "transaction_time": "15/07/2020",
+                  "amount": 2343232
+                }
+              }
+            ]
           }
         };
         break;
@@ -178,7 +197,7 @@ exports.trasactionCount = function(body) {
           message: 'required field uuid'
         };
         break;
-      case body.uuid !== "12":
+      case body.uuid !== "32532mkdmf43435":
           examples['application/json'] = {
             "code": 1000,
             "message": "no record found"
@@ -196,7 +215,7 @@ exports.trasactionCount = function(body) {
             message: 'please enter the date'
           };
           break;
-      case body.date !== '10/2/2022':
+      case body.date !== '15/07/2020':
         examples['application/json'] = {
           code: 1000,
           message: 'please enter the valid date'
@@ -204,11 +223,11 @@ exports.trasactionCount = function(body) {
         break;
       default:
         examples['application/json'] = {
-          code: 2000,
-          data: {
-            amount: 934,
-            current_date: '10/2/2022',
-            count: 34
+          "code": 2000,
+          "data": {
+            "amount": 934,
+            "count": 34,
+            "current_date": "15/07/2020"
           }
         };
         break;
